@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="M004.MainPage">
+	<StackLayout Orientation="Vertical">
+
+		<!--Label: Text anzeigen-->
+		<Label Text="Ein Text"
+			   TextColor="Aqua"
+			   FontSize="40"
+			   x:Name="Ausgabefeld"/>
+
+		<!--Image: Bild anzeigen-->
+		<!--Pfade beziehen sich automatisch auf Resources\Images-->
+		<Image Source="ppedv_logo.png"
+			   HeightRequest="100"
+			   MinimumHeightRequest="100"/>
+
+		<!--Button: Interaktives User Control-->
+		<!--Tipp: Name für Clicked eingeben -> F12 drücken-->
+		<Button Text="Klick"
+				Clicked="KlickClicked"/>
+		<ImageButton Source="ppedv_logo.png"
+					 Clicked="KlickClicked"
+					 Background="Aqua"
+					 HeightRequest="100"/>
+
+		<Button ImageSource="icon.png"
+				Text="Hallo"
+				HeightRequest="100"/>
+		
+		<!--Entry/Editor: Eingabefelder für User (Einzeilig/Mehrzeilig)-->
+		<!--Über x:Name kann die Eingabe ausgelesen werden-->
+		<Entry Placeholder="Gib einen Text ein..."
+			   TextChanged="Eingabefeld_TextChanged"
+			   x:Name="Eingabefeld"/>
+		
+		<!--SearchBar: Kombination von Eingabefeld (Entry) und ImageButton-->
+		<SearchBar SearchButtonPressed="SearchBar_SearchButtonPressed"
+				   Placeholder="Suche..."/>
+
+		<!--CheckBox/Switch: Ja/Nein-Komponente-->
+		<CheckBox CheckedChanged="CheckBox_CheckedChanged"/>
+		<Switch IsToggled="True"/>
+
+		<!--Slider/Stepper: Komponente, welche jeweils eine veränderbare Kommazahl repräsentieren-->
+		<Slider Minimum="10"
+				Maximum="100"
+				Value="30"
+				ValueChanged="Slider_ValueChanged"/>
+		<Stepper Minimum="10"
+				 Maximum="100"
+				 Value="30"
+				 ValueChanged="Stepper_ValueChanged"/>
+		<Label x:Name="StepperValue"/>
+
+		<!--ProgressBar: Fortschritt repräsentieren-->
+		<ProgressBar Progress="0.5"
+					 ProgressColor="LightGreen"/>
+		<ActivityIndicator IsVisible="True"
+						   IsRunning="True"/>
+		
+		<!--DatePicker/TimePicker: Datum/Zeit auswählen-->
+		<DatePicker Format="dddd, dd. MM. yyyy"/>
+		<TimePicker Format="HH:mm:ss"/>
+
+		<!--Picker: Auswahl zwischen mehreren Elementen-->
+		<!--ItemsSource um Elemente aus dem Backend anzuhängen-->
+		<Picker Title="Zahlen von 0 bis 9" x:Name="BackendPicker"/>
+
+		<!--ListView: Anzeigen von mehreren Elementen-->
+		<ListView x:Name="LV">
+			<!--Über Templates kann die Darstellung von Objekten angepasst werden-->
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<ViewCell>
+						<StackLayout Orientation="Vertical">
+							<!--Über Bindings können Felder der unterliegenden Objekte angegriffen werden-->
+							<Label Text="{Binding Vorname}" TextColor="Aqua"/>
+							<Label Text="{Binding Nachname}"/>
+						</StackLayout>
+					</ViewCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+
+		<Rectangle Background="Aqua" WidthRequest="100" HeightRequest="100"/>
+	</StackLayout>
+</ContentPage>
