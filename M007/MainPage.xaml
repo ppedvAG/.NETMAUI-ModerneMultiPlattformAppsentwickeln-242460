@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:local="clr-namespace:M007"
+             x:Class="M007.MainPage">
+	<ContentPage.Resources>
+		<!--Um den Converter angreifen zu können, muss zuerst ein Namespace angelegt werden-->
+		<!--xmlns:local="clr-namespace:M007"-->
+		<local:LeftRightMarginConverter x:Key="LRMConv"/>
+	</ContentPage.Resources>
+	<VerticalStackLayout Spacing="10">
+		<!--Binding-->
+		<!--Verbindung zw. zwei Properties-->
+
+		<!--Zwei verschiedene Formen-->
+		<!--PropertyBinding: Binding zw. zwei UI-Komponenten-->
+		<!--DataBinding: Binding zw. einer UI-Komponente und einem Backend-Property-->
+
+		<!--Aufgabenstellung: Wert eines Sliders in einem Label darstellen-->
+		<!--Bisher über Events, ab jetzt mit Bindings (strikte Trennung von GUI und Backend)-->
+		<Slider Minimum="0" Maximum="100" Value="50" x:Name="TextSlider" />
+
+		<!--Langform-->
+		<Label>
+			<!--Der Wert des Sliders soll in den Text -> Label.Text-->
+			<Label.Text>
+				<!--Mit x:Reference eine Referenz herstellen (über Name)-->
+				<!--Mit Path auswählen, welches Property an der Quelle gebunden werden soll-->
+				<Binding Source="{x:Reference TextSlider}" Path="Value"/>
+			</Label.Text>
+		</Label>
+
+		<!--Kurzform (MarkupExtension)-->
+		<Label Text="{Binding Source={x:Reference TextSlider}, Path=Value}" x:Name="Test"/>
+
+		<!--Bindings sollten immer am Ziel definiert werden (= dort, wo der Wert herauskommen soll)-->
+
+		<!--Binding Mode-->
+		<!--Gibt die Richtung des Bindings an-->
+
+		<!--Bindings in Labels sind OneWay (nur von Quelle zum Label)-->
+		<!--Test für OneWay/TwoWay-->
+		<Button Clicked="Button_Clicked"/>
+
+		<!--Aufgabenstellung: Slider und Entry koppeln-->
+		<!--Entry <-> Slider: TwoWay-->
+		<Entry Text="{Binding Source={x:Reference TextSlider}, Path=Value}"/>
+
+		<!--StringFormat-->
+		<!--Output des gebundenen Wertes verändern-->
+		<!--{0} stellt den Wert des Bindings dar-->
+
+		<!--Aufgabenstellung: Slider und Entry koppeln, und keine Kommastellen anzeigen-->
+		<!--Bei {0} mit :X die Anzahl Kommastellen bestimmen-->
+		<Entry Text="{Binding Source={x:Reference TextSlider}, Path=Value, StringFormat='{0:0}'}"/>
+
+		<!--.......................................................-->
+
+		<!--Converter-->
+		<!--Beim Binding den Wert verändern, der auf der anderen Seite herauskommt-->
+		<!--Benötigt eine eigene Klasse-->
+
+		<!--Aufgabenstellung: Margin links und rechts mit dem Slider verbinden-->
+		<Slider Minimum="0" Maximum="100" Value="5" x:Name="MarginSlider"/>
+
+		<!--Ohne Converter: Alle vier Seiten-->
+		<!--Converter müssen eingebunden werden mittels Resource (siehe oben) und StaticResource-->
+		<Button Margin="{Binding Source={x:Reference MarginSlider}, Path=Value, Converter={StaticResource LRMConv}}"
+				Text="Button mit Seitenabstand"/>
+
+		<!--.......................................................-->
+
+		<!--MultiBinding-->
+		<!--Funktioniert wie ein normales Binding, aber hat mehrere Quellen-->
+		<!--Benötigt immer einen Converter-->
+
+		<!--Aufgabenstellung: Vier Slider, welche ein Margin erzeugen-->
+		<Slider Minimum="0" Maximum="100" Value="5" x:Name="LSlider"/>
+		<Slider Minimum="0" Maximum="100" Value="5" x:Name="TSlider"/>
+		<Slider Minimum="0" Maximum="100" Value="5" x:Name="RSlider"/>
+		<Slider Minimum="0" Maximum="100" Value="5" x:Name="BSlider"/>
+
+		<!--MultiBinding benötigt die Langform-->
+		<Button Text="Button mit Seitenabstand">
+			<Button.Margin>
+				<MultiBinding>
+					<!--Liste der einzelnen Bindings in der Langform-->
+					<MultiBinding.Bindings>
+						<Binding Source="{x:Reference LSlider}" Path="Value"/>
+						<Binding Source="{x:Reference TSlider}" Path="Value"/>
+						<Binding Source="{x:Reference RSlider}" Path="Value"/>
+						<Binding Source="{x:Reference BSlider}" Path="Value"/>
+					</MultiBinding.Bindings>
+
+					<!--Der Converter für das MultiBinding-->
+					<MultiBinding.Converter>
+						<local:FourValueToMarginConverter/>
+					</MultiBinding.Converter>
+				</MultiBinding>
+			</Button.Margin>
+		</Button>
+		<Button/>
+	</VerticalStackLayout>
+</ContentPage>
