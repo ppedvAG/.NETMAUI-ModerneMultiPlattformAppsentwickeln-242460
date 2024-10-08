@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="M006.Resources.Styles.Extern">
+	<!--ResourceDictionary-->
+	<!--Resourcen extern (in einer eigenen Datei) ablegen-->
+	<!--Muss in App.xaml eingebunden werden-->
+	<x:String x:Key="WelcomeText">Welcome to &#10;.NET Multi-platform App UI</x:String>
+</ResourceDictionary>

@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+             x:Class="M006.MainPage"
+			 Background="{StaticResource White}">
+	<!--Resource-->
+	<!--Objekt, welches an einer "globalen" Position abgelegt werden kann und später eingebunden werden kann-->
+	<ContentPage.Resources>
+		<Color x:Key="Black">#000000</Color>
+		<x:Double x:Key="Spacing">10</x:Double>
+		<x:String x:Key="HelloWorld">Hello, World!</x:String>
+
+		<!--Style-->
+		<!--Resource, welche allgemeine Einstellungen von UI-Komponenten setzen soll-->
+		<!--Style mit Key muss per StaticResource eingebunden werden-->
+		<!--Style ohne Key wird global eingebunden-->
+		<Style TargetType="Label">
+			<Setter Property="Background" Value="Aqua"/>
+			<Setter Property="FontSize" Value="40"/>
+			<Setter Property="TextColor" Value="White"/> <!--Wenn ein Property auf dem Element selbst gesetzt wird, wird der Style überschrieben-->
+		</Style>
+
+		<!--Muss per Style="{StaticResource ...}" eingebunden werden-->
+		<Style TargetType="Button" x:Key="BtnStyle">
+			<Setter Property="FontSize" Value="40"/>
+			<!--Komplexe Properties einbinden-->
+			<!--<Setter Property="Text">
+				<Setter.Value>
+					<OnIdiom>
+						<OnIdiom.Desktop>
+							...
+						</OnIdiom.Desktop>
+					</OnIdiom>
+				</Setter.Value>
+			</Setter>-->
+		</Style>
+	</ContentPage.Resources>
+	<ScrollView>
+		<ScrollView.Resources>
+			<!--Bei zwei Resourcen mit demselben Key wird die nähere von beiden verwendet-->
+			<x:String x:Key="HelloWorld">Hello World!</x:String>
+		</ScrollView.Resources>
+		<VerticalStackLayout Padding="30,0" Spacing="{StaticResource Spacing}">
+			<Image Source="dotnet_bot.png" HeightRequest="185" Aspect="AspectFit"/>
+
+			<!--Mittels StaticResource können Resourcen eingebunden werden-->
+			<!--Bei zwei Resourcen mit demselben Key wird die nähere von beiden verwendet-->
+			<Label Text="{StaticResource HelloWorld}" TextColor="{StaticResource Black}"/>
+
+			<!--Wenn eine Resource per Code verändert werden soll, muss DynamicResource verwendet werden-->
+			<Label Text="{StaticResource WelcomeText}" TextColor="{DynamicResource Black}"/>
+			<Button x:Name="CounterBtn"
+					Text="Click me"
+					Background="{StaticResource Black}"
+					Clicked="OnCounterClicked"
+					HorizontalOptions="Fill"
+					Style="{StaticResource BtnStyle}"/>
+		
+			<!--x:Static-->
+			<!--Zugriff auf statische Variablen wie im Backend-->
+			<!--Beispiel: DateTime.Now-->
+			
+			<!--Um DateTime verwenden zu können, ist ein Using notwendig-->
+			<!--xmlns:sys="clr-namespace:System;assembly=System.Runtime"-->
+			<DatePicker Date="{x:Static sys:DateTime.Now}"
+						TextColor="Black"/>
+			
+			<!--Um Enumwerte im XAML einzubinden wird auch x:Static verwendet-->
+			<!--<Label Text="{x:Static sys:DayOfWeek.Tuesday}" TextColor="Black"/>-->
+		</VerticalStackLayout>
+	</ScrollView>
+</ContentPage>
