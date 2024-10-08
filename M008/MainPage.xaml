@@ -6,6 +6,9 @@
 			 xmlns:http="clr-namespace:System.Net;assembly=System.Net"
              x:Class="M008.MainPage"
 			 BindingContext="{Binding Source={RelativeSource Self}}">
+	<ContentPage.Resources>
+		<local:MarkeToImageConverter x:Key="ImgConv"/>
+	</ContentPage.Resources>
 	<ScrollView>
 		<VerticalStackLayout Spacing="10">
 			<!--DataBinding-->
@@ -43,13 +46,21 @@
 				<ListView.ItemTemplate>
 					<DataTemplate>
 						<ViewCell>
-							<StackLayout Orientation="Horizontal">
+							<StackLayout Orientation="Horizontal"
+										 Spacing="10">
 								<!--Marke (Enum) muss übersetzt zu Imagepfad -> Converter-->
 								<!--<Image Source="{Binding Marke, Converter=...}"/>-->
-								<Label Text="{Binding Marke}" FontSize="30"/>
-								<Label Text="{Binding MaxV}"
-									   TextColor="LightGreen"
-									   VerticalOptions="CenterAndExpand"/>
+								<Image Source="{Binding Marke, Converter={StaticResource ImgConv}}"
+									   HeightRequest="50"
+									   WidthRequest="100"
+									   Aspect="AspectFit"/>
+								<Line X1="0" X2="0" Y1="0" Y2="100" Stroke="Black"/>
+								<Image Source="velocity.png"
+									   HeightRequest="50"
+									   Aspect="AspectFit"/>
+								<Label Text="{Binding MaxV, StringFormat='{0} km/h'}"
+									   VerticalOptions="CenterAndExpand"
+									   FontSize="40"/>
 							</StackLayout>
 						</ViewCell>
 					</DataTemplate>
