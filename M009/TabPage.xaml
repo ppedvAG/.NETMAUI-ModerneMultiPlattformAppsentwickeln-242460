@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--TabbedPage-->
+<!--Mehrere Pages mit Swipe-Navigation und eigene Buttons darstellen-->
+<!--WICHTIG: C#-Klasse hinter dieser Page muss auch TabbedPage erben-->
+<!--WICHTIG: Neue Page in App.xaml.cs registrieren-->
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:pages="clr-namespace:M009.Pages"
+			x:Class="M009.TabPage">
+	<pages:MainContentPage/>
+	<pages:Page2/>
+	<ContentPage Title="Kleine Page3">
+		<Label Text="Hello World"/>
+	</ContentPage>
+</TabbedPage>

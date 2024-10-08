@@ -39,6 +39,8 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
 
 	public DayOfWeek[] Wochentage { get; set; } = Enum.GetValues<DayOfWeek>();
 
+	public FahrzeugMarke[] AlleMarken { get; set; } = Enum.GetValues<FahrzeugMarke>();
+
 	public MainPage()
 	{
 		InitializeComponent();
@@ -54,8 +56,17 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
 		Fahrzeuge.Add(MeinAuto);
 	}
 
+	private async void Button_Clicked_1(object sender, EventArgs e)
+	{
+		bool b = await DisplayAlert("Neues Fahrzeug hinzufügen", $"Neues Fahrzeug: {MeinAuto.MaxV}, {MeinAuto.Marke}", "Ja", "Nein");
+		if (b)
+			Fahrzeuge.Add(MeinAuto);
+	}
+
+	#region INotifyPropertyChanged
+
 	//////////////////////////////////////////////////////////
-	
+
 	//Diesen Code einfach kopieren
 	public event PropertyChangedEventHandler PropertyChanged;
 
@@ -63,4 +74,5 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
 	{
 		PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 	}
+	#endregion
 }
