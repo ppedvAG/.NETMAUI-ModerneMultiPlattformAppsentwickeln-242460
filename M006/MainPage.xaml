@@ -24,6 +24,15 @@
 		<!--Muss per Style="{StaticResource ...}" eingebunden werden-->
 		<Style TargetType="Button" x:Key="BtnStyle">
 			<Setter Property="FontSize" Value="40"/>
+			<Setter Property="Background">
+				<Setter.Value>
+					<LinearGradientBrush>
+						<GradientStop Color="Aqua" Offset="0"/>
+						<GradientStop Color="Red" Offset="0.5"/>
+						<GradientStop Color="LightGreen" Offset="1"/>
+					</LinearGradientBrush>
+				</Setter.Value>
+			</Setter>
 			<!--Komplexe Properties einbinden-->
 			<!--<Setter Property="Text">
 				<Setter.Value>
@@ -52,7 +61,6 @@
 			<Label Text="{StaticResource WelcomeText}" TextColor="{DynamicResource Black}"/>
 			<Button x:Name="CounterBtn"
 					Text="Click me"
-					Background="{StaticResource Black}"
 					Clicked="OnCounterClicked"
 					HorizontalOptions="Fill"
 					Style="{StaticResource BtnStyle}"/>
