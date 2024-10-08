@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:local="clr-namespace:M008"
+			 xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+			 xmlns:http="clr-namespace:System.Net;assembly=System.Net"
+             x:Class="M008.MainPage"
+			 BindingContext="{Binding Source={RelativeSource Self}}">
+	<ScrollView>
+		<VerticalStackLayout Spacing="10">
+			<!--DataBinding-->
+			<!--Binding zw. GUI-Komponente und Backend Property-->
+		
+			<!--Zwei neue Anforderungen: BindingContext, INotifyPropertyChanged-->
+		
+			<!--BindingContext-->
+			<!--Gibt dem XAML bekannt, welche Daten wir binden wollen-->
+			<!--BindingContext="{Binding Source={RelativeSource Self}}"-->
+			<Label Text="{Binding Path=Counter}"
+				   FontSize="40"/>
+			<Button Clicked="Button_Clicked"/>
+			<!--Veränderungen werden in der GUI nicht automatisch übernommen -> Benachrichtigung-->
+		
+			<!--INotifyPropertyChanged-->
+			<!--Stellt einen Benachrichtigungsmechanismus bereit, welcher die GUI aktualisiert-->
+			<!--Wird ausschließlich im Backend definiert-->
+			<Label Text="{Binding MeinAuto.MaxV}"/>
+			<Label Text="{Binding MeinAuto.Marke}"/>
+
+			<!--ObservableCollection-->
+			<!--Stellt eine Liste bereit, welche den Benachrichtigungsmechanismus implementiert hat-->
+			<!--WICHTIG: Funktioniert nur wenn Elemente hinzugefügt/entfernt werden-->
+		
+			<!--Wenn kein Template für die Objekte besteht, wird die ToString Methode der Objekte ausgeführt-->
+			<ListView ItemsSource="{Binding Fahrzeuge}"/>
+		
+			<!--.................................................................-->
+		
+			<!--DataTemplate-->
+			<!--Definiert, wie Daten dargestellt werden-->
+			<!--Beispiel: Logo pro Marke, MaxV-->
+			<ListView ItemsSource="{Binding Fahrzeuge}">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<StackLayout Orientation="Horizontal">
+								<!--Marke (Enum) muss übersetzt zu Imagepfad -> Converter-->
+								<!--<Image Source="{Binding Marke, Converter=...}"/>-->
+								<Label Text="{Binding Marke}" FontSize="30"/>
+								<Label Text="{Binding MaxV}"
+									   TextColor="LightGreen"
+									   VerticalOptions="CenterAndExpand"/>
+							</StackLayout>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+			
+			<!--MarkupExtensions-->
+			
+			<!--Problemstellung: Enum in der GUI anzeigen-->
+			<!--Lösung 1: Liste aller Enumwerte im Backend definieren und per Binding anbinden-->
+			<Picker ItemsSource="{Binding Wochentage}"/>
+			
+			<!--Lösung 2: Eigene MarkupExtension, welche die Liste selbst erzeugt, und keinen Platz im Backend benötigt-->
+			<Picker ItemsSource="{local:Enum EnumType={x:Type http:HttpStatusCode}}"/>
+		</VerticalStackLayout>
+	</ScrollView>
+</ContentPage>

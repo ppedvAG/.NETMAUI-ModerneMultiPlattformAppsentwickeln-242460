@@ -1,11 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="M000.MainPage">
+             xmlns:local="clr-namespace:M000"
+			 x:Class="M000.MainPage">
+	<ContentPage.Resources>
+		<local:ToHexConverter x:Key="HexConv"/>
+	</ContentPage.Resources>
 	<StackLayout Orientation="Vertical">
 		<StackLayout Orientation="Horizontal">
 			<Label Text="Verheiratet: " Margin="5, 0, 0, 0"/>
 			<Switch HorizontalOptions="EndAndExpand" Margin="165, -8, 0, 0"/>
+
 		</StackLayout>
+		<Label Text="{Binding Source={x:Reference ColorRect}, Path='Fill.Color', Converter={StaticResource HexConv}, StringFormat='Picked Color: {0}'}"
+			   HorizontalTextAlignment="Center"/>
+		<Rectangle Fill="Aqua" x:Name="ColorRect" WidthRequest="100" HeightRequest="100"/>
 	</StackLayout>
 </ContentPage>
