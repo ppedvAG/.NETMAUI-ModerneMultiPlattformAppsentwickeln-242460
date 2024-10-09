@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:vm="clr-namespace:M011.ViewModel"
+             x:Class="M011.MVVMToolkit"
+             Title="MVVMToolkit">
+	<ContentPage.BindingContext>
+		<vm:MainPageMVVMToolkitViewModel/>
+	</ContentPage.BindingContext>
+	<VerticalStackLayout>
+		<Button	Text="{Binding CounterBtnText}"
+                HorizontalOptions="Fill"
+				Command="{Binding CounterClickedCommand}"/>
+	</VerticalStackLayout>
+</ContentPage>
