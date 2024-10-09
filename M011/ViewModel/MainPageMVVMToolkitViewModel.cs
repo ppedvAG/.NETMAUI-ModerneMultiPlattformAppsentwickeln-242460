@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Collections.ObjectModel;
 
 namespace M011.ViewModel;
 
@@ -23,6 +24,8 @@ public partial class MainPageMVVMToolkitViewModel : ObservableObject
 	private string counterBtnText = "Click me";
 
 	private int counter = 0;
+
+	public ObservableCollection<string> Personen { get; set; } = ["Max", "Udo", "Tim"];
 
 	[RelayCommand(CanExecute = nameof(CounterCanExecute))]
 	public void CounterClicked(object o)

@@ -8,8 +8,11 @@
 		<vm:MainPageMVVMToolkitViewModel/>
 	</ContentPage.BindingContext>
 	<VerticalStackLayout>
+		<ListView ItemsSource="{Binding Personen}"
+				  x:Name="LV"/>
 		<Button	Text="{Binding CounterBtnText}"
                 HorizontalOptions="Fill"
-				Command="{Binding CounterClickedCommand}"/>
+				Command="{Binding CounterClickedCommand}"
+				CommandParameter="{Binding Source={x:Reference LV}, Path=SelectedItem}"/>
 	</VerticalStackLayout>
 </ContentPage>
